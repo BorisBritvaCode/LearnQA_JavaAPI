@@ -9,7 +9,7 @@ import java.lang.Thread;
 public class testLongtimeJob {
 
     @Test
-    public void testGetCookie() throws InterruptedException {
+    public void longtimeJob() throws InterruptedException {
 
         /* создаем задачу и если получили токен, считаем, что задача начала исполнение */
         JsonPath responseJobStart = RestAssured
