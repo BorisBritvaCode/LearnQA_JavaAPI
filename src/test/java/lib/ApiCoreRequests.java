@@ -64,4 +64,13 @@ public class ApiCoreRequests {
                 .put(url)
                 .andReturn();
     }
+
+    @Step("Make a PUT-request with no auth")
+    public Response makePutRequestWithNoAuth(String url, Map<String, String> editData) {
+        return given()
+                .filter(new AllureRestAssured())
+                .body(editData)
+                .put(url)
+                .andReturn();
+    }
 }
