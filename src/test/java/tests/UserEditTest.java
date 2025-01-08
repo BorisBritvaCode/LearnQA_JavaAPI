@@ -68,7 +68,7 @@ public class UserEditTest extends BaseTestCase {
     }
 
     @Test
-    @Description("This test registers a user, then authorizes as another user, tries to change username fot just created user and checks the username is still the same")
+    @Description("This test registers a user, tries to change username with no auth and checks the name is still the same")
     @DisplayName("Test edit user with no auth negative")
     public void testEditUserNotAuth() {
         // создаем нового пользователя
@@ -90,7 +90,6 @@ public class UserEditTest extends BaseTestCase {
                 editData);
 
         Assertions.assertResponseCodeEquals(responseEditUser, 400);
-        Assertions.assertJsonHasField(responseEditUser, "error");
         Assertions.assertJsonByName(responseEditUser, "error", "Auth token not supplied");
 
         // username созданного пользователя не изменился
@@ -101,7 +100,7 @@ public class UserEditTest extends BaseTestCase {
     }
 
     @Test
-    @Description("This test registers a user, tries to change username with no auth and checks the name is still the same")
+    @Description("This test registers a user, then authorizes as another user, tries to change username fot just created user and checks the username is still the same")
     @DisplayName("Test authorized user edits another user negative")
     public void testEditUserAuthAsAnotherUser() {
         // создаем нового пользователя
@@ -136,7 +135,6 @@ public class UserEditTest extends BaseTestCase {
                 editData);
 
         Assertions.assertResponseCodeEquals(responseEditUser, 400);
-        Assertions.assertJsonHasField(responseEditUser, "error");
         Assertions.assertJsonByName(responseEditUser, "error", "This user can only edit their own data.");
 
         // username созданного пользователя не изменился
@@ -182,7 +180,6 @@ public class UserEditTest extends BaseTestCase {
                 editData);
 
         Assertions.assertResponseCodeEquals(responseEditUser, 400);
-        Assertions.assertJsonHasField(responseEditUser, "error");
         Assertions.assertJsonByName(responseEditUser, "error", "Invalid email format");
 
         // email созданного пользователя не изменился
@@ -229,7 +226,6 @@ public class UserEditTest extends BaseTestCase {
                 editData);
 
         Assertions.assertResponseCodeEquals(responseEditUser, 400);
-        Assertions.assertJsonHasField(responseEditUser, "error");
         Assertions.assertJsonByName(responseEditUser, "error", "The value for field `firstName` is too short");
 
         // имя созданного пользователя не изменилось
