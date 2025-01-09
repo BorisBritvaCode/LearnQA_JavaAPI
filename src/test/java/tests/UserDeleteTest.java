@@ -21,6 +21,7 @@ public class UserDeleteTest extends BaseTestCase {
 
     String header;
     String cookie;
+    String userId;
     private final ApiCoreRequests apiCoreRequests = new ApiCoreRequests();
 
     @Test
@@ -65,7 +66,7 @@ public class UserDeleteTest extends BaseTestCase {
         Response responseCreateAuth = apiCoreRequests.makePostRequest(
                 "https://playground.learnqa.ru/api/user/", userData);
 
-        String userId = responseCreateAuth.jsonPath().getString("id");
+        this.userId = getStringFromJson(responseCreateAuth, "id");
 
         // авторизуемся за созданного пользователя
         Map<String, String> authData = new HashMap<>();
@@ -105,7 +106,7 @@ public class UserDeleteTest extends BaseTestCase {
         Response responseCreateAuth = apiCoreRequests.makePostRequest(
                 "https://playground.learnqa.ru/api/user/", userData);
 
-        String userId = responseCreateAuth.jsonPath().getString("id");
+        this.userId = getStringFromJson(responseCreateAuth, "id");
         String defaultUsername = userData.get("username");
 
         // авторизуемся за другого пользователя

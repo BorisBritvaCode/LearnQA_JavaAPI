@@ -22,6 +22,7 @@ public class UserEditTest extends BaseTestCase {
 
     String cookie;
     String header;
+    String userId;
     private final ApiCoreRequests apiCoreRequests = new ApiCoreRequests();
 
     @Test
@@ -34,7 +35,7 @@ public class UserEditTest extends BaseTestCase {
         Response responseCreateAuth = apiCoreRequests.makePostRequest(
                 "https://playground.learnqa.ru/api/user/", userData);
 
-        String userId = responseCreateAuth.jsonPath().getString("id");
+        this.userId = getStringFromJson(responseCreateAuth, "id");
 
         // авторизуемся за созданного пользователя
         Map<String, String> authData = new HashMap<>();
@@ -77,7 +78,7 @@ public class UserEditTest extends BaseTestCase {
         Response responseCreateAuth = apiCoreRequests.makePostRequest(
                 "https://playground.learnqa.ru/api/user/", userData);
 
-        String userId = responseCreateAuth.jsonPath().getString("id");
+        this.userId = getStringFromJson(responseCreateAuth, "id");
         String defaultUsername = userData.get("username");
 
         // запрос на редактирование без авторизации возвращает ошибку
@@ -109,7 +110,7 @@ public class UserEditTest extends BaseTestCase {
         Response responseCreateAuth = apiCoreRequests.makePostRequest(
                 "https://playground.learnqa.ru/api/user/", userData);
 
-        String userId = responseCreateAuth.jsonPath().getString("id");
+        this.userId = getStringFromJson(responseCreateAuth, "id");
         String defaultUsername = userData.get("username");
 
         // авторизуемся за другого пользователя
@@ -154,7 +155,7 @@ public class UserEditTest extends BaseTestCase {
         Response responseCreateAuth = apiCoreRequests.makePostRequest(
                 "https://playground.learnqa.ru/api/user/", userData);
 
-        String userId = responseCreateAuth.jsonPath().getString("id");
+        this.userId = getStringFromJson(responseCreateAuth, "id");
         String defaultEmail = userData.get("email");
 
         // авторизуемся за созданного пользователя
@@ -201,7 +202,7 @@ public class UserEditTest extends BaseTestCase {
         Response responseCreateAuth = apiCoreRequests.makePostRequest(
                 "https://playground.learnqa.ru/api/user/", userData);
 
-        String userId = responseCreateAuth.jsonPath().getString("id");
+        this.userId = getStringFromJson(responseCreateAuth, "id");
         String defaultFirstName = userData.get("firstName");
 
         // авторизуемся за созданного пользователя
