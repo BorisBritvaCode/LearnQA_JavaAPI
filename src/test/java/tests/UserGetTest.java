@@ -25,7 +25,7 @@ public class UserGetTest extends BaseTestCase {
     @DisplayName("Test get not authorized user details positive")
     public void testGetUserDataNotAuth() {
         Response responseUserData = apiCoreRequests.makeGetRequestWithNoAuth(
-                "https://playground.learnqa.ru/api/user/2");
+                ENVIRONMENT + "user/2");
 
         String[] unexpectedFields = {"firstName", "lastName", "email"};
 
@@ -43,14 +43,14 @@ public class UserGetTest extends BaseTestCase {
 
         // логинимся за пользователя с ID=2
         Response responseGetAuth = apiCoreRequests
-                .makePostRequest("https://playground.learnqa.ru/api/user/login", authData);
+                .makePostRequest(ENVIRONMENT + "user/login", authData);
 
         String header = this.getHeader(responseGetAuth, "x-csrf-token");
         String cookie = this.getCookie(responseGetAuth, "auth_sid");
 
         // запрашиваем данные пользователя с ID=2
         Response responseUserData = apiCoreRequests
-                .makeGetRequest("https://playground.learnqa.ru/api/user/2",
+                .makeGetRequest(ENVIRONMENT + "user/2",
                         header,
                         cookie);
 
@@ -69,14 +69,14 @@ public class UserGetTest extends BaseTestCase {
 
         // логинимся за пользователя с ID=2
         Response responseGetAuth = apiCoreRequests
-                .makePostRequest("https://playground.learnqa.ru/api/user/login", authData);
+                .makePostRequest(ENVIRONMENT + "user/login", authData);
 
         String header = this.getHeader(responseGetAuth, "x-csrf-token");
         String cookie = this.getCookie(responseGetAuth, "auth_sid");
 
         // запрашиваем данные пользователя с ID=1
         Response responseUserData = apiCoreRequests
-                .makeGetRequest("https://playground.learnqa.ru/api/user/1",
+                .makeGetRequest(ENVIRONMENT + "user/1",
                         header,
                         cookie);
 

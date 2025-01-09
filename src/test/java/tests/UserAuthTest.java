@@ -33,7 +33,7 @@ public class UserAuthTest extends BaseTestCase {
         authData.put("password", "1234");
 
         Response responseGetAuth = apiCoreRequests
-                .makePostRequest("https://playground.learnqa.ru/api/user/login", authData);
+                .makePostRequest(ENVIRONMENT + "user/login", authData);
 
         this.cookie = this.getCookie(responseGetAuth, "auth_sid");
         this.header = this.getHeader(responseGetAuth, "x-csrf-token");
@@ -46,7 +46,7 @@ public class UserAuthTest extends BaseTestCase {
     public void testAuthUser() {
 
         Response responseCheckAuth = apiCoreRequests
-                .makeGetRequest("https://playground.learnqa.ru/api/user/auth",
+                .makeGetRequest(ENVIRONMENT + "user/auth",
                         this.header,
                         this.cookie);
 
@@ -61,7 +61,7 @@ public class UserAuthTest extends BaseTestCase {
 
         if (condition.equals("cookie")) {
             Response responseForCheck = apiCoreRequests.makeGetRequestWithCookie(
-                    "https://playground.learnqa.ru/api/user/auth",
+                    ENVIRONMENT + "user/auth",
                     this.cookie
             );
             Assertions.assertJsonByName(responseForCheck, "user_id", 0);

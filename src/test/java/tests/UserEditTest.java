@@ -33,7 +33,7 @@ public class UserEditTest extends BaseTestCase {
         Map<String, String> userData = DataGenerator.getRegistrationData();
 
         Response responseCreateAuth = apiCoreRequests.makePostRequest(
-                "https://playground.learnqa.ru/api/user/", userData);
+                ENVIRONMENT + "user/", userData);
 
         this.userId = getStringFromJson(responseCreateAuth, "id");
 
@@ -43,7 +43,7 @@ public class UserEditTest extends BaseTestCase {
         authData.put("password", userData.get("password"));
 
         Response responseGetAuth = apiCoreRequests
-                .makePostRequest("https://playground.learnqa.ru/api/user/login", authData);
+                .makePostRequest(ENVIRONMENT + "user/login", authData);
 
         this.cookie = this.getCookie(responseGetAuth, "auth_sid");
         this.header = this.getHeader(responseGetAuth, "x-csrf-token");
@@ -54,14 +54,14 @@ public class UserEditTest extends BaseTestCase {
         editData.put("firstName", newName);
 
         Response responseEditUser = apiCoreRequests.makePutRequest(
-                "https://playground.learnqa.ru/api/user/" + userId,
+                ENVIRONMENT + "user/" + userId,
                 this.header,
                 this.cookie,
                 editData);
 
         // проверяем, что имя изменилось
         Response responseUserData = apiCoreRequests
-                .makeGetRequest("https://playground.learnqa.ru/api/user/" + userId,
+                .makeGetRequest(ENVIRONMENT + "user/" + userId,
                         this.header,
                         this.cookie);
 
@@ -76,7 +76,7 @@ public class UserEditTest extends BaseTestCase {
         Map<String, String> userData = DataGenerator.getRegistrationData();
 
         Response responseCreateAuth = apiCoreRequests.makePostRequest(
-                "https://playground.learnqa.ru/api/user/", userData);
+                ENVIRONMENT + "user/", userData);
 
         this.userId = getStringFromJson(responseCreateAuth, "id");
         String defaultUsername = userData.get("username");
@@ -87,7 +87,7 @@ public class UserEditTest extends BaseTestCase {
         editData.put("firstName", newName);
 
         Response responseEditUser = apiCoreRequests.makePutRequestWithNoAuth(
-                "https://playground.learnqa.ru/api/user/" + userId,
+                ENVIRONMENT + "user/" + userId,
                 editData);
 
         Assertions.assertResponseCodeEquals(responseEditUser, 400);
@@ -95,7 +95,7 @@ public class UserEditTest extends BaseTestCase {
 
         // username созданного пользователя не изменился
         Response responseUserData = apiCoreRequests
-                .makeGetRequestWithNoAuth("https://playground.learnqa.ru/api/user/" + userId);
+                .makeGetRequestWithNoAuth(ENVIRONMENT + "user/" + userId);
 
        Assertions.assertJsonByName(responseUserData, "username", defaultUsername);
     }
@@ -108,7 +108,7 @@ public class UserEditTest extends BaseTestCase {
         Map<String, String> userData = DataGenerator.getRegistrationData();
 
         Response responseCreateAuth = apiCoreRequests.makePostRequest(
-                "https://playground.learnqa.ru/api/user/", userData);
+                ENVIRONMENT + "user/", userData);
 
         this.userId = getStringFromJson(responseCreateAuth, "id");
         String defaultUsername = userData.get("username");
@@ -119,7 +119,7 @@ public class UserEditTest extends BaseTestCase {
         authData.put("password", "1234");
 
         Response responseGetAuth = apiCoreRequests
-                .makePostRequest("https://playground.learnqa.ru/api/user/login", authData);
+                .makePostRequest(ENVIRONMENT + "user/login", authData);
 
         this.cookie = this.getCookie(responseGetAuth, "auth_sid");
         this.header = this.getHeader(responseGetAuth, "x-csrf-token");
@@ -130,7 +130,7 @@ public class UserEditTest extends BaseTestCase {
         editData.put("firstName", newName);
 
         Response responseEditUser = apiCoreRequests.makePutRequest(
-                "https://playground.learnqa.ru/api/user/" + userId,
+                ENVIRONMENT + "user/" + userId,
                 this.header,
                 this.cookie,
                 editData);
@@ -140,7 +140,7 @@ public class UserEditTest extends BaseTestCase {
 
         // username созданного пользователя не изменился
         Response responseUserData = apiCoreRequests
-                .makeGetRequestWithNoAuth("https://playground.learnqa.ru/api/user/" + userId);
+                .makeGetRequestWithNoAuth(ENVIRONMENT + "user/" + userId);
 
         Assertions.assertJsonByName(responseUserData, "username", defaultUsername);
     }
@@ -153,7 +153,7 @@ public class UserEditTest extends BaseTestCase {
         Map<String, String> userData = DataGenerator.getRegistrationData();
 
         Response responseCreateAuth = apiCoreRequests.makePostRequest(
-                "https://playground.learnqa.ru/api/user/", userData);
+                ENVIRONMENT + "user/", userData);
 
         this.userId = getStringFromJson(responseCreateAuth, "id");
         String defaultEmail = userData.get("email");
@@ -164,7 +164,7 @@ public class UserEditTest extends BaseTestCase {
         authData.put("password", userData.get("password"));
 
         Response responseGetAuth = apiCoreRequests
-                .makePostRequest("https://playground.learnqa.ru/api/user/login", authData);
+                .makePostRequest(ENVIRONMENT + "user/login", authData);
 
         this.cookie = this.getCookie(responseGetAuth, "auth_sid");
         this.header = this.getHeader(responseGetAuth, "x-csrf-token");
@@ -175,7 +175,7 @@ public class UserEditTest extends BaseTestCase {
         editData.put("email", invalidEmail);
 
         Response responseEditUser = apiCoreRequests.makePutRequest(
-                "https://playground.learnqa.ru/api/user/" + userId,
+                ENVIRONMENT + "user/" + userId,
                 this.header,
                 this.cookie,
                 editData);
@@ -185,7 +185,7 @@ public class UserEditTest extends BaseTestCase {
 
         // email созданного пользователя не изменился
         Response responseUserData = apiCoreRequests
-                .makeGetRequest("https://playground.learnqa.ru/api/user/" + userId,
+                .makeGetRequest(ENVIRONMENT + "user/" + userId,
                         this.header,
                         this.cookie);
 
@@ -200,7 +200,7 @@ public class UserEditTest extends BaseTestCase {
         Map<String, String> userData = DataGenerator.getRegistrationData();
 
         Response responseCreateAuth = apiCoreRequests.makePostRequest(
-                "https://playground.learnqa.ru/api/user/", userData);
+                ENVIRONMENT + "user/", userData);
 
         this.userId = getStringFromJson(responseCreateAuth, "id");
         String defaultFirstName = userData.get("firstName");
@@ -211,7 +211,7 @@ public class UserEditTest extends BaseTestCase {
         authData.put("password", userData.get("password"));
 
         Response responseGetAuth = apiCoreRequests
-                .makePostRequest("https://playground.learnqa.ru/api/user/login", authData);
+                .makePostRequest(ENVIRONMENT + "user/login", authData);
 
         this.cookie = this.getCookie(responseGetAuth, "auth_sid");
         this.header = this.getHeader(responseGetAuth, "x-csrf-token");
@@ -221,7 +221,7 @@ public class UserEditTest extends BaseTestCase {
         editData.put("firstName", "B");
 
         Response responseEditUser = apiCoreRequests.makePutRequest(
-                "https://playground.learnqa.ru/api/user/" + userId,
+                ENVIRONMENT + "user/" + userId,
                 this.header,
                 this.cookie,
                 editData);
@@ -231,7 +231,7 @@ public class UserEditTest extends BaseTestCase {
 
         // имя созданного пользователя не изменилось
         Response responseUserData = apiCoreRequests
-                .makeGetRequest("https://playground.learnqa.ru/api/user/" + userId,
+                .makeGetRequest(ENVIRONMENT + "user/" + userId,
                         this.header,
                         this.cookie);
 
