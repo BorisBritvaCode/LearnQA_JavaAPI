@@ -1,22 +1,22 @@
 package tests;
 
+import io.qameta.allure.*;
 import io.restassured.response.Response;
 import lib.ApiCoreRequests;
 import lib.Assertions;
 import lib.BaseTestCase;
 import lib.DataGenerator;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import  io.qameta.allure.Description;
-import  io.qameta.allure.Epic;
-import  io.qameta.allure.Feature;
 import  org.junit.jupiter.api.DisplayName;
 
-@Epic("Delete user cases")
-@Feature("User deletion")
+@Feature("Delete user")
+@DisplayName("Delete user tests")
 public class UserDeleteTest extends BaseTestCase {
 
     String header;
@@ -27,6 +27,9 @@ public class UserDeleteTest extends BaseTestCase {
     @Test
     @Description("This test checks that deletion of a test user is forbidden")
     @DisplayName("Test delete test user negative")
+    @Story("Negative tests")
+    @Tags({@Tag("api"),@Tag("user")})
+    @Owner("Ivan Pechenkin")
     public void testDeleteTestUser() {
         Map<String, String> authData = new HashMap<>();
         authData.put("email", "vinkotov@example.com");
@@ -59,6 +62,9 @@ public class UserDeleteTest extends BaseTestCase {
     @Test
     @Description("This test registers a user, then authorizes this user, deletes him and checks the user is deleted")
     @DisplayName("Test delete just created user positive")
+    @Story("Positive tests")
+    @Tags({@Tag("api"),@Tag("smoke"),@Tag("user")})
+    @Owner("Ivan Pechenkin")
     public void testDeleteJustCreatedUser() {
         // создаем нового пользователя
         Map<String, String> userData = DataGenerator.getRegistrationData();
@@ -99,6 +105,9 @@ public class UserDeleteTest extends BaseTestCase {
     @Test
     @Description("This test registers a user, then authorizes as another user, tries to delete just created user and checks the user is still here")
     @DisplayName("Test authorized user delete another user negative")
+    @Story("Negative tests")
+    @Tags({@Tag("api"),@Tag("user")})
+    @Owner("Ivan Pechenkin")
     public void testDeleteUserAuthAsAnotherUser() {
         // создаем нового пользователя
         Map<String, String> userData = DataGenerator.getRegistrationData();

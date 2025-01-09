@@ -1,8 +1,8 @@
 package tests;
 
+import io.qameta.allure.*;
 import io.restassured.response.Response;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import lib.BaseTestCase;
@@ -12,13 +12,8 @@ import lib.ApiCoreRequests;
 import java.util.HashMap;
 import java.util.Map;
 
-import  io.qameta.allure.Description;
-import  io.qameta.allure.Epic;
-import  io.qameta.allure.Feature;
-import  org.junit.jupiter.api.DisplayName;
-
-@Epic("Authorization cases")
 @Feature("Authorization")
+@DisplayName("Authorization tests")
 public class UserAuthTest extends BaseTestCase {
 
     String cookie;
@@ -43,6 +38,9 @@ public class UserAuthTest extends BaseTestCase {
     @Test
     @Description("This test successfully authorize user by email and password")
     @DisplayName("Test auth user positive")
+    @Story("Positive tests")
+    @Tags({@Tag("api"),@Tag("smoke"),@Tag("user")})
+    @Owner("Ivan Pechenkin")
     public void testAuthUser() {
 
         Response responseCheckAuth = apiCoreRequests
@@ -53,10 +51,13 @@ public class UserAuthTest extends BaseTestCase {
         Assertions.assertJsonByName(responseCheckAuth, "user_id", this.userIdOnAuth);
     }
 
+    @ParameterizedTest (name = "Test auth user negative. Auth with {0} only")
+    @ValueSource(strings = {"cookie", "header"})
     @Description("This test checks authorization status without sending auth cookie or token ")
     @DisplayName("Test auth user negative")
-    @ParameterizedTest
-    @ValueSource(strings = {"cookie", "headers"})
+    @Story("Negative tests")
+    @Tags({@Tag("api"),@Tag("smoke"),@Tag("user")})
+    @Owner("Ivan Pechenkin")
     public void testNegativeAuthUser(String condition){
 
         if (condition.equals("cookie")) {
@@ -65,7 +66,7 @@ public class UserAuthTest extends BaseTestCase {
                     this.cookie
             );
             Assertions.assertJsonByName(responseForCheck, "user_id", 0);
-        } else if (condition.equals("headers")) {
+        } else if (condition.equals("header")) {
             Response responseForCheck = apiCoreRequests.makeGetRequestWithToken(
                     "https://playground.learnqa.ru/api/user/auth",
                     this.header

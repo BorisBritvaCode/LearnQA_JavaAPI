@@ -1,23 +1,23 @@
 package tests;
 
+import io.qameta.allure.*;
 import io.restassured.response.Response;
 import lib.ApiCoreRequests;
 import lib.Assertions;
 import lib.BaseTestCase;
 import lib.DataGenerator;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import  io.qameta.allure.Description;
-import  io.qameta.allure.Epic;
-import  io.qameta.allure.Feature;
 import  org.junit.jupiter.api.DisplayName;
 
 
-@Epic("Change user details cases")
-@Feature("User edit")
+@Feature("Change user details")
+@DisplayName("Edit user tests")
 public class UserEditTest extends BaseTestCase {
 
     String cookie;
@@ -28,6 +28,9 @@ public class UserEditTest extends BaseTestCase {
     @Test
     @Description("This test registers a user, then authorizes this user, changes his name and checks the name is changed")
     @DisplayName("Test edit just created user positive")
+    @Story("Positive tests")
+    @Tags({@Tag("api"),@Tag("smoke"),@Tag("user")})
+    @Owner("Ivan Pechenkin")
     public void testEditJustCreatedUser() {
         // создаем нового пользователя
         Map<String, String> userData = DataGenerator.getRegistrationData();
@@ -71,6 +74,9 @@ public class UserEditTest extends BaseTestCase {
     @Test
     @Description("This test registers a user, tries to change username with no auth and checks the name is still the same")
     @DisplayName("Test edit user with no auth negative")
+    @Story("Negative tests")
+    @Tags({@Tag("api"),@Tag("smoke"),@Tag("user")})
+    @Owner("Ivan Pechenkin")
     public void testEditUserNotAuth() {
         // создаем нового пользователя
         Map<String, String> userData = DataGenerator.getRegistrationData();
@@ -103,6 +109,9 @@ public class UserEditTest extends BaseTestCase {
     @Test
     @Description("This test registers a user, then authorizes as another user, tries to change username fot just created user and checks the username is still the same")
     @DisplayName("Test authorized user edits another user negative")
+    @Story("Negative tests")
+    @Tags({@Tag("api"),@Tag("user")})
+    @Owner("Ivan Pechenkin")
     public void testEditUserAuthAsAnotherUser() {
         // создаем нового пользователя
         Map<String, String> userData = DataGenerator.getRegistrationData();
@@ -148,6 +157,9 @@ public class UserEditTest extends BaseTestCase {
     @Test
     @Description("This test registers a user, then authorizes this user, tries to change email on invalid one and checks the email is still the same")
     @DisplayName("Test edit user with invalid email negative")
+    @Story("Negative tests")
+    @Tags({@Tag("api"),@Tag("user")})
+    @Owner("Ivan Pechenkin")
     public void testEditUserWithInvalidEmail() {
         // создаем нового пользователя
         Map<String, String> userData = DataGenerator.getRegistrationData();
@@ -195,6 +207,9 @@ public class UserEditTest extends BaseTestCase {
     @Test
     @Description("This test registers a user, then authorizes this user, tries to change name on too short one and checks the name is still the same")
     @DisplayName("Test edit user with too short name negative")
+    @Story("Negative tests")
+    @Tags({@Tag("api"),@Tag("user")})
+    @Owner("Ivan Pechenkin")
     public void testEditUserWithTooShortName() {
         // создаем нового пользователя
         Map<String, String> userData = DataGenerator.getRegistrationData();
