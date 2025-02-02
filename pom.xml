@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.example</groupId>
-    <artifactId>api-test-example-restassured</artifactId>
+    <artifactId>LearnQA_JavaApi</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <name>api-test-example-restassured</name>
